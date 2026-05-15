@@ -8,9 +8,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                script {
+                    for (int i = 0; i < 10; i++) {
+                        echo("Script ${i}")
+                    }
+                }
+
                 echo 'Hello Build'
                 // sleep(5)
-                bat("mvn clean compile test-compile")
+                // bat("mvn clean compile test-compile")
                 echo 'Hello Build'
             }
         }
@@ -18,7 +24,7 @@ pipeline {
             steps {
                 echo 'Hello Test'
                 // sleep(5)
-                bat("mvn test")
+                // bat("mvn test")
                 echo 'Hello Test'
             }
         }
