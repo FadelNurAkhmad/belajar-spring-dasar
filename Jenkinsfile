@@ -9,14 +9,16 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Hello Build'
-                sleep(5)
+                // sleep(5)
+                bat("mvn clean compile test-compile")
                 echo 'Hello Build'
             }
         }
         stage('Test') {
             steps {
                 echo 'Hello Test'
-                sleep(5)
+                // sleep(5)
+                bat("mvn test")
                 echo 'Hello Test'
             }
         }
