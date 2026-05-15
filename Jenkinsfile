@@ -19,23 +19,22 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time: 10, unit: 'MINUTES')
     }
-    
-    stage("Parameter") {
-      agent {
-        node {
-          label "linux && java21"
-        }
-      }
-      steps {
-        echo "Hello ${params.NAME}"
-        echo "You description is ${params.DESCRIPTION}"
-        echo "Your social medis is ${params.SOCIAL_MEDIA}"
-        echo "Need to deploy : ${params.DEPLOY} to deploy!"
-        echo "Your secret is ${params.SECRET}"
-      }
-    }
 
     stages {
+        stage("Parameter") {
+            agent {
+                node {
+                label "linux && java21"
+                }
+            }
+            steps {
+                echo "Hello ${params.NAME}"
+                echo "You description is ${params.DESCRIPTION}"
+                echo "Your social medis is ${params.SOCIAL_MEDIA}"
+                echo "Need to deploy : ${params.DEPLOY} to deploy!"
+                echo "Your secret is ${params.SECRET}"
+            }
+        }
         stage("Prepare") {
 
         environment {
