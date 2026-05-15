@@ -7,6 +7,12 @@ pipeline {
         WEB = "https://www.programmerzamannow.com"
     }
 
+    //  triggers {
+    //    cron("*/5 * * * *")
+    //    pollSCM("H/5 * * * *")
+    //    upstream(upstreamProjects: "job-1, job-2", threshold: hudson.model.Result.SUCCESS)
+    //  }
+
     parameters {
         string(name: "NAME", defaultValue: "Guest", description: "What is your name?")
         text(name: "DESCRIPTION", defaultValue: "Guest", description: "Tell me about you")
@@ -100,15 +106,24 @@ pipeline {
             }
         }
         stage('Deploy') {
+            input {
+                message "Can we deploy?"
+                ok "Yes, of course"
+                submitter "pzn,eko"
+                parameters {
+                choice(name: "TARGET_ENV", choices: ['DEV', 'QA', 'PROD'], description: "Which Environment?")
+                }
+            }
             agent {
                 node {
                 label "linux && java21"
                 }
             }
             steps {
-                echo 'Hello Deploy'
-                sleep(5)
-                echo 'Hello Deploy'
+                echo("Deploy to ${TARGET_ENV}")
+                // echo 'Hello Deploy'
+                // sleep(5)
+                // echo 'Hello Deploy'
             }
         }
     }
