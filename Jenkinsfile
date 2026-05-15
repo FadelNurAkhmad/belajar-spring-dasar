@@ -1,12 +1,18 @@
 pipeline {
     agent none
 
+    environment {
+        AUTHOR = "Eko Kurniawan Khannedy"
+        EMAIL = "echo.khannedy@gmail.com"
+        WEB = "https://www.programmerzamannow.com"
+    }
+
     stages {
         stage("Prepare") {
 
-        // environment {
-        //     APP = credentials("eko_rahasia")
-        // }
+        environment {
+            APP = credentials("parjo_secret")
+        }
 
         agent {
             node {
@@ -14,13 +20,14 @@ pipeline {
             }
         }
         steps {
-            // echo("Author ${AUTHOR}")
-            // echo("Email ${EMAIL}")
-            // echo("Web ${WEB}")
+            echo("Author ${AUTHOR}")
+            echo("Email ${EMAIL}")
+            echo("Web ${WEB}")
             echo("Start Job : ${env.JOB_NAME}")
             echo("Start Build : ${env.BUILD_NUMBER}")
             echo("Branch Name : ${env.BRANCH_NAME}")
-            // echo("App User : ${APP_USR}")
+            echo("App User : ${APP_USR}")
+            echo("App Password : ${APP_PSW}")
             // sh('echo "App Password : $APP_PSW" > "rahasia.txt"')
         }
         }
