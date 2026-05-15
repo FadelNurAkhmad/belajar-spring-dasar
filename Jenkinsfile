@@ -2,6 +2,28 @@ pipeline {
     agent none
 
     stages {
+        stage("Prepare") {
+
+        // environment {
+        //     APP = credentials("eko_rahasia")
+        // }
+
+        agent {
+            node {
+            label "linux && java21"
+            }
+        }
+        steps {
+            // echo("Author ${AUTHOR}")
+            // echo("Email ${EMAIL}")
+            // echo("Web ${WEB}")
+            echo("Start Job : ${env.JOB_NAME}")
+            echo("Start Build : ${env.BUILD_NUMBER}")
+            echo("Branch Name : ${env.BRANCH_NAME}")
+            // echo("App User : ${APP_USR}")
+            // sh('echo "App Password : $APP_PSW" > "rahasia.txt"')
+        }
+        }
         stage('Build') {
             agent {
                 node {
