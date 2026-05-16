@@ -126,6 +126,28 @@ pipeline {
                 // echo 'Hello Deploy'
             }
         }
+
+        stage("Release") {
+            when {
+                expression {
+                return params.DEPLOY
+                }
+            }
+            agent {
+                node {
+                label "linux && java21"
+                }
+            }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: "parjo_secret",
+                    usernameVariable: "USER",
+                    passwordVariable: "PASSWORD"
+                )]) {
+                sh('echo "Release it with -u $USER -p $PASSWORD" > "release.txt"')
+                }
+            }
+        }
     }
     post {
     always {
